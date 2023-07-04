@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { AuthGuard } from '../auth/auth.guard';
-import { CreateUserDto, UpdateUserDto } from './dto/';
+import { CreateUserDto, FilterUserDto, UpdateUserDto } from './dto/';
 import { User } from './entities';
 import { UserService } from './user.service';
 
@@ -10,8 +10,9 @@ export class UserController {
   constructor(private userService: UserService) {}
   @UseGuards(AuthGuard)
   @Get()
-  findAll(): Promise<User[]> {
-    return this.userService.findAll();
+  findAll(@Query() query: FilterUserDto): Promise<User[]> {
+    console.log(query)
+    return this.userService.findAll(query);
   }
 
 
