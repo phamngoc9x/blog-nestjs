@@ -1,14 +1,20 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { AuthGuard } from '../auth/auth.guard';
 import { CreateUserDto, FilterUserDto, UpdateUserDto } from './dto/';
 import { User } from './entities';
 import { UserService } from './user.service';
 
+@ApiBearerAuth()
+@ApiTags('Users')
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
   @UseGuards(AuthGuard)
+  @ApiQuery({name: 'search'})
+  @ApiQuery({name: 'items_per_page'})
+  @ApiQuery({name: 'page'})
   @Get()
   findAll(@Query() query: FilterUserDto): Promise<User[]> {
     console.log(query)

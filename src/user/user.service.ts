@@ -16,7 +16,7 @@ export class UserService {
     const [res, total] =  await this.userRepository.findAndCount({
       where: [
         {firstName: Like('%' + keyword + '%')},
-        {lastName: Like('%' + keyword + '%')},
+        {lastName: Like('%'+ keyword + '%')},
         {email: Like('%' + keyword + '%')}
       ],
       order: { created_at: "DESC"},
@@ -27,6 +27,7 @@ export class UserService {
     const lastPage = Math.ceil(total/items_per_page)
     const nextPage = page + 1 > lastPage ? null : page + 1;
     const prevPage = page - 1 < 1 ? null : page - 1;
+    
     return {
       data: res,
       total,
