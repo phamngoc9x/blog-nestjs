@@ -55,4 +55,9 @@ export class UserService {
       id
     );
   }
+  async updateAvatar(id: number, avatar:string): Promise<UpdateResult> {
+    return await this.userRepository.update(
+      id, { avatar }
+    );
+  }
 }
