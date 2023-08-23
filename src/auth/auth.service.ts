@@ -67,6 +67,9 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       where: { email: loginUserDto.email }
     })
+
+    // for show loading icon
+    await new Promise<any>(resolve => setTimeout(resolve, 2000))
     
     if (!user) {
       throw new HttpException("Email is not exist", HttpStatus.UNAUTHORIZED)

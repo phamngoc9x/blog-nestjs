@@ -15,13 +15,12 @@ import { extname } from 'path';
 export class UserController {
   constructor(private userService: UserService) {}
   @UseGuards(AuthGuard)
-  @ApiQuery({name: 'search'})
-  @ApiQuery({name: 'items_per_page'})
-  @ApiQuery({name: 'page'})
+  @ApiQuery({ name: 'page' })
+  @ApiQuery({ name: 'items_per_page' })
+  @ApiQuery({ name: 'search' })
   @Get()
   findAll(@Query() query: FilterUserDto): Promise<User[]> {
-    console.log(query)
-    return this.userService.findAll(query);
+      return this.userService.findAll(query);
   }
 
 
